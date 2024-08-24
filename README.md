@@ -24,3 +24,9 @@ Finding different consumer segments, comprehending buying patterns, and assessin
 **Exploratory Data Analysis (EDA)** **-**
 We will be conducting exploratory data analysis to address the project's listed questions and objectives.
 
+
+
+
+
+
+
