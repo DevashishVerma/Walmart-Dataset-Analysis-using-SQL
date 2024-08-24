@@ -1,0 +1,161 @@
+#GENERIC QUESTIONS 
+
+#Q1
+SELECT DISTINCT City FROM walmartsalesdata;
+
+#Q2
+SELECT DISTINCT Branch , City FROM walmartsalesdata;
+
+#PRODUCT ANALYSIS
+
+#Q1
+SELECT DISTINCT `Product line` FROM walmartsalesdata;
+
+#Q2
+SELECT Payment  ,COUNT(payment) AS times_used FROM walmartsalesdata
+GROUP BY Payment
+ORDER BY times_used DESC
+LIMIT 1;
+
+#Q3
+SELECT `Product line` , COUNT(`Product line`) FROM walmartsalesdata
+GROUP BY `Product line`
+ORDER BY COUNT(`Product line`) DESC
+LIMIT 1;
+
+#Q4
+SELECT DATE_FORMAT(Date , "%M") AS month ,MONTH(Date) AS month_number, SUM(`gross income`) AS earning 
+FROM walmartsalesdata
+GROUP BY month , month_number
+ORDER BY month_number ASC;
+
+#Q5
+SELECT DATE_FORMAT(Date , "%M") AS month ,MONTH(Date) AS month_number , 
+SUM(cogs) AS COGS FROM walmartsalesdata
+GROUP BY  month , month_number
+ORDER BY COGS DESC;
+
+#Q6
+SELECT `Product line` , SUM(`gross income`) AS revenue FROM walmartsalesdata
+GROUP BY `Product line`
+ORDER BY revenue DESC;
+ 
+ #Q7
+SELECT City , SUM(`gross income`) AS revenue FROM walmartsalesdata
+GROUP BY City
+ORDER BY revenue DESC;
+
+#Q8
+SELECT `Product line` , SUM(`Tax 5%`) AS avg_vat FROM walmartsalesdata
+GROUP BY `Product line`
+ORDER BY avg_vat DESC;
+
+#Q9
+SELECT Branch , AVG(Quantity) AS avg_quant_sold FROM walmartsalesdata
+GROUP BY Branch
+HAVING avg_quant_sold > (
+SELECT AVG(Quantity) FROM walmartsalesdata);
+
+#Q10
+WITH my_cte AS (
+SELECT Gender , `Product line` , COUNT(*) AS items_sold  , 
+RANK() OVER(PARTITION BY Gender ORDER BY COUNT(*) DESC) AS rnk
+FROM walmartsalesdata
+GROUP BY Gender , `Product line`)
+SELECT Gender , `Product line` FROM my_cte
+WHERE rnk = 1;
+
+#Q11
+SELECT `Product line` , AVG(Rating) FROM walmartsalesdata
+GROUP BY `Product line`;
+
+#Q12
+WITH my_cte AS (SELECT `Product line` , AVG(`gross income`) AS avg_sales_per_branch FROM walmartsalesdata
+GROUP BY `Product line`),
+my_cte_2 AS (
+SELECT AVG(`gross income`) AS avg_sales FROM walmartsalesdata)
+SELECT my.`Product line` , 
+CASE WHEN my.avg_sales_per_branch > mt.avg_sales THEN 'Good' ELSE 'Bad' END AS Product_category
+FROM my_cte AS my , my_cte_2 AS mt;
+
+
+#SALES ANALYSIS
+
+SELECT * FROM walmartsalesdata;
+
+#Q1
+SELECT DATE_FORMAT( Date , "%W") AS week_day ,DAYOFWEEK(Date) AS day_num,  COUNT(*) FROM walmartsalesdata
+GROUP BY week_day , day_num
+ORDER BY day_num;
+
+#Q2
+SELECT `Customer type` , SUM(`gross income`) AS revenue FROM walmartsalesdata
+GROUP BY `Customer type`
+ORDER BY revenue DESC;
+
+#Q3
+SELECT City , SUM(`Tax 5%`) AS VAT FROM walmartsalesdata
+GROUP BY City
+ORDER BY VAT DESC;
+
+#Q4
+SELECT `Customer type` , SUM(`Tax 5%`) AS VAT FROM walmartsalesdata
+GROUP BY `Customer type`
+ORDER BY VAT DESC;
+
+#CUSTOMER ANALYSIS
+
+SELECT * FROM walmartsalesdata;
+
+#Q1
+SELECT DISTINCT `Customer type` FROM walmartsalesdata;
+
+#Q2
+SELECT DISTINCT Payment FROM walmartsalesdata;
+
+#Q3
+SELECT `Customer type` , COUNT(`Customer type`) AS no_of_each_type FROM walmartsalesdata
+GROUP BY `Customer type`
+ORDER BY no_of_each_type DESC;
+
+#Q4
+SELECT Gender , COUNT(*) AS no_of_each_gen FROM walmartsalesdata
+GROUP BY Gender
+ORDER BY no_of_each_gen DESC;
+
+#Q5
+WITH my_cte AS (
+SELECT Branch , Gender , COUNT(*) AS total ,
+RANK() OVER(PARTITION BY Branch ORDER BY COUNT(*) DESC) AS rnk
+FROM walmartsalesdata
+GROUP BY Branch , Gender)
+SELECT Branch , Gender FROM my_cte
+WHERE rnk = 1;
+
+#Q6
+SELECT Time , COUNT(Rating) AS total FROM walmartsalesdata
+GROUP BY Time
+ORDER BY total DESC;	
+
+#Q7
+WITH my_cte AS (
+SELECT Branch, Time , COUNT(Rating) AS total,
+RANK() OVER(PARTITION BY Branch ORDER BY COUNT(Rating) DESC) AS rnk
+FROM walmartsalesdata
+GROUP BY Branch , Time)
+SELECT Branch , Time , total FROM my_cte
+WHERE rnk = 1;
+
+#Q8
+SELECT DATE_FORMAT( Date , "%W") AS week_day , AVG(Rating) AS avg_rating FROM walmartsalesdata
+GROUP BY week_day
+ORDER BY avg_rating DESC;
+
+#Q9
+WITH my_cte AS (
+SELECT Branch , DATE_FORMAT( Date , "%W") AS week_day , AVG(Rating) AS avg_rating ,
+RANK() OVER(PARTITION BY Branch ORDER BY AVG(Rating) DESC) AS rnk
+FROM walmartsalesdata
+GROUP BY Branch , week_day)
+SELECT Branch , week_day FROM my_cte
+WHERE rnk = 1;
