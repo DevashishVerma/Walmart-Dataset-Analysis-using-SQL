@@ -1,0 +1,59 @@
+GENERAL QUESTIONS -
+
+Q1.How many distinct cities are present in the dataset?
+Q2.In which city is each branch situated?
+
+PRODUCT ANALYSIS QUESTIONS -
+
+Q1.How many distinct product lines are there in the dataset?
+Q2.What is the most common payment method?
+Q3.What is the most selling product line?
+Q4.What is the total revenue by month?
+Q5.Which month recorded the highest Cost of Goods Sold (COGS)?
+Q6.Which product line generated the highest revenue?
+Q7.Which city has the highest revenue?
+Q8.Which product line incurred the highest VAT?
+Q9.Retrieve each product line and add a column product_category, indicating 'Good' or 'Bad,' based on whether its sales are above the average.
+Q10.Which branch sold more products than average product sold?
+Q11.What is the most common product line by gender?
+Q12.What is the average rating of each product line?
+
+SALES ANALYSIS QUESTIONS - 
+
+Q1.Number of sales made in each time of the day per weekday
+Q2.Identify the customer type that generates the highest revenue.
+Q3.Which city has the largest tax percent/ VAT (Value Added Tax)?
+Q4.Which customer type pays the most VAT?
+
+CUSTOMER ANALYSIS QUESTIONS -
+
+Q1.How many unique customer types does the data have?
+Q2.How many unique payment methods does the data have?
+Q3.Which is the most common customer type?
+Q4.Which customer type buys the most?
+Q5.What is the gender distribution per branch?
+Q6.Which time of the day do customers give most ratings?
+Q7.Which time of the day do customers give most ratings per branch?
+Q8.Which day of the week has the best avg ratings?
+Q9.Which day of the week has the best average ratings per branch?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
